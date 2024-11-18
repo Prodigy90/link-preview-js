@@ -126,6 +126,16 @@ function getImages(
     }
   }
 
+  if (images.length <= 0 && rootUrl.indexOf(`youtube.com`) >= 0) {
+    let videoId = new URL(rootUrl).searchParams.get('v') || rootUrl.split('/').pop();
+    if (videoId) {
+        videoId = videoId.split('?')[0];
+        images.push(`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`);
+    } else {
+        console.error("Video ID is undefined. Could not construct YouTube thumbnail URL.");
+    }
+  }
+
   return images;
 }
 
